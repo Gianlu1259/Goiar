@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 import styled from "styled-components";
 
-interface InputLoginProps { 
+interface InputProps { 
     title:string,
     name:string,
     type:string,
@@ -9,11 +9,11 @@ interface InputLoginProps {
     onChange:React.ChangeEventHandler<HTMLInputElement>
 }
  
-const InputLogin: FunctionComponent<InputLoginProps> = ({ title, placeholder, type, name, onChange }) => {
+const Input: FunctionComponent<InputProps> = ({ title, placeholder, type, name, onChange }) => {
     return <Container className="content d-flex flex-column mb-4 position-relative" data-aos="fade">
     <span>{title}</span>
     <div>
-      <Input
+      <InputForm
         type={type}
         className="form-control effect-5 position-relative"
         name={name}
@@ -35,7 +35,7 @@ const Container = styled.div`
         height: 40px;
     }
 `
-const Input = styled.input`
+const InputForm = styled.input`
     height: 100%;
     width: 100%;
     background-color: transparent;
@@ -54,4 +54,4 @@ const Input = styled.input`
         box-shadow: 0px;
     }
 `
-export default InputLogin;
+export default Input;

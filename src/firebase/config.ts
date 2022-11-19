@@ -1,4 +1,7 @@
-export default{
+
+import 'firebase/firestore';
+import firebase from 'firebase/compat/app'
+const fireConfig={
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
     authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
     databaseURL:process.env.REACT_APP_FIREBASE_DB_URL,
@@ -7,5 +10,6 @@ export default{
     messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
     appId: process.env.REACT_APP_FIREBASE_APP_ID
 }
-
-
+firebase.initializeApp(fireConfig)
+//export const db = firebase.firestore();
+export default firebase

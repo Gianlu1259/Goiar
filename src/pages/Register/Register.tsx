@@ -1,9 +1,9 @@
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { FunctionComponent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import FormRegister from "../../components/FormRegister";
 import { useCustomDispatch } from "../../hooks/redux";
+import { registerUser } from "../../redux/slices/auth";
 import { RegisterData } from "../../types/RegisterData";
 
 interface RegisterProps {
@@ -18,7 +18,6 @@ const Register: FunctionComponent<RegisterProps> = () => {
         password2:''
       };
       const [formData, setFormData] = useState<RegisterData>(initialValues);
-    const auth=getAuth();
     const dispatch=useCustomDispatch();
     const navigate=useNavigate();
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,9 +26,11 @@ const Register: FunctionComponent<RegisterProps> = () => {
       };
         const handleLogin = async() => {
             if(formData.password===formData.password2){
-                await createUserWithEmailAndPassword(auth,formData.email,formData.password).then((res)=>{
-                    console.log(res);
-                }).catch((e)=>alert(e))
+                dispatch(registerUser(formData)).then((res)=>{
+                    navigate('/home')
+                }).catch((e)=>{
+                    alert(e)
+                })
             }else{
                 alert("contraseños distintas");
             }

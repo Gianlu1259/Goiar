@@ -14,17 +14,20 @@ export interface Register{
 const initialState:IAuth={
     id:''
 }
-//const firebase=useFirebaseApp();
+
 const authSlice=createSlice({
     name:'auth',
     initialState,
     reducers:{
         setIdUser:(state,action:PayloadAction<string>)=>{
             state.id=action.payload;
-        }
+        },
+        setLogoutData: (state) => {
+            state.id = '';
+          }
     }
 })
-export const {setIdUser}=authSlice.actions;
+export const {setIdUser,setLogoutData}=authSlice.actions;
 export default authSlice.reducer;//estoy exportando el campo 'reducers' de authSlice
 
 export const login = 
@@ -55,6 +58,4 @@ export const registerUser =
     }catch(error){
         return error as Promise<UserCredential>;
     }
-    
-
 }

@@ -1,19 +1,24 @@
 import { getAuth } from "firebase/auth";
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useCustomSelector } from "../hooks/redux";
 
 interface PublicRoutesProps {
     children: React.ReactNode
 }
  
-const PublicRoutes: React.FunctionComponent<PublicRoutesProps> = (props) => {
-    
-    const {children}=props;
-    console.log(children)
-    const auth=getAuth();//me devuelve el AuthContext donde esta la info del user
+const PublicRoutes: React.FunctionComponent<PublicRoutesProps> = ({children}) => {
+    const {auth}=useCustomSelector((state)=>state)
     const navigate=useNavigate();
-    console.log('holaaaaaaaaaaaaaaaaaa')
-    //if(auth) navigate('/Home')
+    useEffect(() => {
+      AuthCheck();
+    }, [auth])
+    
+    const AuthCheck=()=>{
+        if(auth.id!==''){
+            navigate('/home')
+        }
+    }
     return (<>{children}</>)
     
 }

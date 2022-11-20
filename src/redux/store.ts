@@ -1,8 +1,8 @@
 import { configureStore,ThunkAction,Action } from "@reduxjs/toolkit";
 import authReducer from "./slices/auth";
+import noteReducer from './slices/Notas/'
 import { persistStore,persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { Auth } from "firebase/auth";
 
 const persistAuth={
     key:'auth',
@@ -12,7 +12,8 @@ const persistAuth={
 
 const store= configureStore({
     reducer:{
-        auth:persistReducer<ReturnType<typeof authReducer>>(persistAuth,authReducer)
+        auth:persistReducer<ReturnType<typeof authReducer>>(persistAuth,authReducer),
+        note:noteReducer
     }
 });
 

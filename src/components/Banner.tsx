@@ -80,7 +80,6 @@ const Search=styled.div`
     :hover{
     transition: 0.2s;
         -webkit-transform:scale(1.5, 1.5);
-        
     }
 `
 

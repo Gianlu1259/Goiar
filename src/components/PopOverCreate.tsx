@@ -74,7 +74,7 @@ const PopOverCreate: FunctionComponent<PopOverCreateProps> = (props) => {
                             Tipo
                         </h2>
                         <Select value={props.formData.Tipo} name='Tipo' onChange={handleTipo}>
-                        <option value="" selected disabled hidden>Seleccionar tipo de nota</option>
+                        <option value="" selected disabled hidden>Filtrar por tipo de nota</option>
                             {
                                 tiposNota.map((tipo)=>{
                                     return <option style={{cursor:'pointer'}} value={tipo}>{tipo}</option>
@@ -98,9 +98,8 @@ const PopOverCreate: FunctionComponent<PopOverCreateProps> = (props) => {
      );
 }
 const Create = styled.div<PropsStyled>`
-    width: 100%;
-    height: 100%;
-    bottom: 60%;
+    
+    bottom: 50%;
     position: sticky;
     -webkit-transform:${p=>p.mostrar?'scale(1.1, 1.1)':'scale(0, 0)'};
 `

@@ -2,7 +2,9 @@ import { FunctionComponent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import FormRegister from "../../components/FormRegister";
-import { useCustomDispatch } from "../../hooks/redux";
+import LoyautForms from "../../components/LoyautForm";
+import NavBar from "../../components/NavBar";
+import { useCustomDispatch, useCustomSelector } from "../../hooks/redux";
 import { registerUser } from "../../redux/slices/auth";
 import { RegisterData } from "../../types/RegisterData";
 
@@ -20,6 +22,7 @@ const Register: FunctionComponent<RegisterProps> = () => {
       const [formData, setFormData] = useState<RegisterData>(initialValues);
     const dispatch=useCustomDispatch();
     const navigate=useNavigate();
+    const {auth}=useCustomSelector((state)=>state)
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -38,6 +41,10 @@ const Register: FunctionComponent<RegisterProps> = () => {
     }
     return (
         <>
+        <LoyautForms>
+            <FormRegister handleInputChange={handleInputChange} handleRegister={handleLogin} email={formData.email} password={formData.password} password2={formData.password2}/>
+        </LoyautForms>
+            {/*<NavBar/>
             <Container>
             <InfoContainer>
                 <Title>
@@ -46,9 +53,9 @@ const Register: FunctionComponent<RegisterProps> = () => {
             </InfoContainer>
 
             <FormContainer>
-                <FormRegister handleInputChange={handleInputChange} handleRegister={handleLogin}/>
+                <FormRegister handleInputChange={handleInputChange} handleRegister={handleLogin} email={formData.email} password={formData.password} password2={formData.password2}/>
             </FormContainer>
-        </Container>
+        </Container>*/}
         </>
     );
 }
@@ -59,7 +66,7 @@ export const Container = styled.div`
 export const InfoContainer = styled.div`
     height: 100vh;
     width: 50%;
-    background-color: #64d1bf;
+    background-color: #112f58;
     position: relative;
 `
 export const Title = styled.h2`
@@ -74,7 +81,7 @@ export const FormContainer = styled.div`
 position: relative;
     height: 100vh;
     width: 50%;
-    background-color: #35465d;
+    background-color: #36dd81;
     
 `
 export default Register;

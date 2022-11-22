@@ -1,8 +1,9 @@
 import { FunctionComponent,useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
-import { useCustomDispatch } from "../hooks/redux";
+import { useCustomDispatch, useCustomSelector } from "../hooks/redux";
 import { setLogoutData } from "../redux/slices/auth";
+import { setPopOver } from "../redux/slices/Notas";
 import tiposNota from '../utils/TypeNotes'
 interface BannerProps {
     handleSearchNote:any
@@ -16,7 +17,6 @@ const Banner: FunctionComponent<BannerProps> = ({handleSearchNote}) => {
     const navigate=useNavigate()
     const [select, setSelect] = useState('');
     const [input, setInput] = useState('');
-    
     const handleTipo=(event: React.ChangeEvent<HTMLSelectElement>)=>{
         setSelect(event.target.value)
     }
@@ -25,6 +25,9 @@ const Banner: FunctionComponent<BannerProps> = ({handleSearchNote}) => {
     }
     const handleSubmit=()=>{
         handleSearchNote({select,input})
+    }
+    const openPopover=()=>{
+        dispatch(setPopOver(true));
     }
     const Logout=()=>{
         dispatch(setLogoutData())
@@ -38,7 +41,7 @@ const Banner: FunctionComponent<BannerProps> = ({handleSearchNote}) => {
                 </Title>
                 <ContainerButtons>
                     <Button onClick={()=>{Logout()}} backGroundHover={'red'} marginButtom={null}>Sign out</Button>
-                    <Button backGroundHover={'#0af906'} marginButtom={'0'}>Crear nota</Button>
+                    <Button onClick={()=>{openPopover()}} backGroundHover={'#0af906'} marginButtom={'0'}>Crear nota</Button>
                 </ContainerButtons>
             </ContainerOptions>
 

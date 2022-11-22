@@ -16,7 +16,6 @@ const PrivateRoutes: React.FunctionComponent<IPrivateRoutesProps> = ({children})
     
     const AuthCheck=()=>{
         if(auth.id===''){
-            console.log('inautorizado')
             navigate('/')
         }
     }

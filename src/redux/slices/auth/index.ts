@@ -4,22 +4,28 @@ import { LoginData } from "../../../types/loginType";
 import { Thunk } from "../../store";
 
 export interface IAuth {
-    id:string
+    id:string,
+    email:string | null
 }
 export interface Register{
     email: string;
-    name:string;
     password: string;
 }
 const initialState:IAuth={
-    id:''
+    id:'',
+    email:''
 }
 
 const authSlice=createSlice({
     name:'auth',
     initialState,
     reducers:{
-        setIdUser:(state,action:PayloadAction<string>)=>{
+        setIdUser:(state,action:PayloadAction<IAuth>)=>{
+            console.log(action.payload)
+            state.id=action.payload.id;
+            state.email=action.payload.email;
+        },
+        setEmailUser:(state,action:PayloadAction<string>)=>{
             state.id=action.payload;
         },
         setLogoutData: (state) => {
@@ -37,7 +43,7 @@ export const login =
         const auth=getAuth();
         const response = signInWithEmailAndPassword(auth,data.email,data.password);
         response.then((user)=>{
-            dispatch(setIdUser(user.user.uid));
+            dispatch(setIdUser({id:user.user.uid,email:user.user.email}));
         })
     return response;
     }catch(error){
@@ -52,7 +58,7 @@ export const registerUser =
         const auth=getAuth();
         const response = createUserWithEmailAndPassword(auth,data.email,data.password);
         response.then((user)=>{
-            dispatch(setIdUser(user.user.uid));
+            dispatch(setIdUser({id:user.user.uid,email:user.user.email}));
         })
     return response;
     }catch(error){

@@ -1,28 +1,28 @@
 import { FunctionComponent } from "react";
 import styled from "styled-components";
 
-interface InputProps { 
+interface TextareaProps { 
     title:string,
     name:string,
     type:string,
     placeholder:string,
     value:string,
-    onChange:React.ChangeEventHandler<HTMLInputElement>,
+    onChange:React.ChangeEventHandler,
 }
  
-const Input: FunctionComponent<InputProps> = ({ title, placeholder, type, name, onChange,value }) => {
-    return <Container className="content d-flex flex-column mb-4 position-relative" data-aos="fade">
+const Textarea: FunctionComponent<TextareaProps> = ({ title, placeholder, name, onChange, value }) => {
+    return <Container >
     <span>{title}</span>
     <div>
-      <InputForm
-        value={value}
-        type={type}
-        className="form-control effect-5 position-relative"
+      <TextareaForm
         name={name}
         id={name}
         placeholder={placeholder}
         onChange={onChange}
         required={true}
+        cols={10}
+        rows={50}
+        value={value}
       />
       
     </div>
@@ -30,7 +30,7 @@ const Input: FunctionComponent<InputProps> = ({ title, placeholder, type, name, 
 }
 const Container = styled.div`
     position: relative;
-    margin-bottom: 4px;
+    margin-bottom: 60px;
     &>span{
         font-size: 45px;
     }
@@ -38,14 +38,17 @@ const Container = styled.div`
         height: 40px;
     }
 `
-const InputForm = styled.input`
-    height: 100%;
+const TextareaForm = styled.textarea`
     width: 100%;
+    height: 4em; /* a bit less than four lines to demonstrate scrolling */
     background-color: transparent;
     border: none;
     border-bottom: 1px solid black;
     color: white;
     font-size: 20px;
+    resize: none;
+    rows:10;
+    cols:50;
     &:focus {
         background-color: transparent;
         outline: none;
@@ -57,4 +60,4 @@ const InputForm = styled.input`
         box-shadow: 0px;
     }
 `
-export default Input;
+export default Textarea;

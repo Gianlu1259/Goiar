@@ -1,39 +1,46 @@
 import { FunctionComponent } from "react";
 import styled from "styled-components";
-import { useCustomDispatch } from "../hooks/redux";
-import { deleteNote } from "../redux/slices/Notas";
+import { useCustomDispatch, useCustomSelector } from "../hooks/redux";
+import { deleteNote, searchNotes, setViewCard } from "../redux/slices/Notas";
 import { NoteData } from "../types/NoteType";
 
 interface CardProps {
-    note:NoteData,
-    
+    noteData:NoteData,
+    setSelectedNote:any
 }
  
-const Card: FunctionComponent<CardProps> = ({note}) => {
+const Card: FunctionComponent<CardProps> = ({noteData,setSelectedNote}) => {
+    const {auth,note}=useCustomSelector((state)=>state)
     const dispatch=useCustomDispatch()
     const handleDeleteNote=(idNote:string)=>{
-        console.log(idNote)
             dispatch(deleteNote(idNote))
+            dispatch(searchNotes(auth.id,note.lastVisible))
+      }
+      const viewCard=()=>{
+        dispatch(setViewCard(true));
+        setSelectedNote(noteData)
       }
     return ( 
-        <Container>
+        <Container >
             <DeleteButton>
-                <IconDelete onClick={()=>{handleDeleteNote(note.id)}}>
+                <IconDelete onClick={()=>{handleDeleteNote(noteData.id)}}>
                     <span>X</span>
                 </IconDelete>
-                
+            
             </DeleteButton>
+            <div onClick={()=>{viewCard()}}>
             <H2>
-                <h2>{note.Titulo}</h2>
+                <h2>{noteData.Titulo}</h2>
             </H2>
             <Descripcion>
                 <h3>
-                    {note.Descripcion}
+                    {noteData.Descripcion}
                 </h3>
             </Descripcion>
             <Time>
-                <h3>{note.Fecha.toDate().toLocaleDateString()}</h3>
+                <h3>{noteData.Fecha.toDate().toLocaleDateString()}</h3>
             </Time>
+            </div>
         </Container>
      );
 }

@@ -5,14 +5,15 @@ import Card from "./Card";
 
 interface ContainerCardsProps {
     arrayNotes:Array<NoteData>,
+    setSelectedNote:any
 }
  
-const ContainerCards: FunctionComponent<ContainerCardsProps> = ({arrayNotes}) => {
+const ContainerCards: FunctionComponent<ContainerCardsProps> = ({arrayNotes,setSelectedNote}) => {
     return ( 
         <Container>
             {
-                arrayNotes.map((note)=>{
-                    return <Card note={note}/>
+                arrayNotes.map((noteData)=>{
+                    return <Card setSelectedNote={setSelectedNote} noteData={noteData}/>
                 })
             }
         </Container>
@@ -20,12 +21,13 @@ const ContainerCards: FunctionComponent<ContainerCardsProps> = ({arrayNotes}) =>
 }
 const Container = styled.div`
     padding: 60px;
+    padding-bottom: 20px;
     display: flex;
     position: relative;
     flex-wrap: wrap;
     justify-content: center;
     height: fit-content;
-    width: 100%;
+    //width: 100%;
     text-align: start;
     height: auto;
 `

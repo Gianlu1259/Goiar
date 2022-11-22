@@ -115,13 +115,13 @@ const IconDelete = styled.div`
 const Container = styled.div<PropsStyled>`
     transition: all 0.3s;
     z-index: 1;
-    background-color: #d9d9d9;
+    background-color: #ffff;
     height:410px;
     width:445px;
     -webkit-transform:${p=>p.mostrar?'scale(1.1, 1.1)':'scale(0, 0)'};
     position: absolute;
-    top: 20%;
-    left: 35%;
+    top: 30%;
+    left: 40%;
     border-radius: 25px;
     -webkit-box-shadow: 0px 0px 16px 5px rgba(0,0,0,0.76);
     //display: ${p=>p.mostrar?'block':'none'};

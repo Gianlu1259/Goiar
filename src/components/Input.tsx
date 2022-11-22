@@ -44,7 +44,7 @@ const InputForm = styled.input`
     background-color: transparent;
     border: none;
     border-bottom: 1px solid black;
-    color: white;
+    color: #706f6f;
     font-size: 20px;
     &:focus {
         background-color: transparent;

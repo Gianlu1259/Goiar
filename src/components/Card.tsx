@@ -52,6 +52,7 @@ const Time = styled.div`
         text-decoration: underline;
     }
 `
+
 const Descripcion = styled.div`
     text-align: center;
     padding: 10px;
@@ -76,7 +77,7 @@ const Container = styled.div`
     transition: 0.2s;
     height:300px;
     width: 250px;
-    background-color: #d9d9d9;
+    background-color: #ffffff;
     border-radius: 30px;
     -webkit-box-shadow: 0px 0px 16px 5px rgba(0,0,0,0.76);
     -moz-box-shadow: 0px 0px 16px 5px rgba(0,0,0,0.76);

@@ -5,6 +5,7 @@ import { useCustomDispatch, useCustomSelector } from "../hooks/redux";
 import { setLogoutData } from "../redux/slices/auth";
 import { setPopOver } from "../redux/slices/Notas";
 import tiposNota from '../utils/TypeNotes'
+import IconSerach from "./IconSearch";
 interface BannerProps {
     handleSearchNote:any
 }
@@ -17,6 +18,7 @@ const Banner: FunctionComponent<BannerProps> = ({handleSearchNote}) => {
     const navigate=useNavigate()
     const [select, setSelect] = useState('');
     const [input, setInput] = useState('');
+    const {auth}=useCustomSelector((state)=>state)
     const handleTipo=(event: React.ChangeEvent<HTMLSelectElement>)=>{
         setSelect(event.target.value)
     }
@@ -24,7 +26,6 @@ const Banner: FunctionComponent<BannerProps> = ({handleSearchNote}) => {
         setInput(event.target.value)
     }
     const handleSubmit=()=>{
-        console.log(select)
         handleSearchNote({tipo:select,input})
     }
     const openPopover=()=>{
@@ -38,7 +39,7 @@ const Banner: FunctionComponent<BannerProps> = ({handleSearchNote}) => {
         <Container>
             <ContainerOptions>
                 <Title>
-                    Mis notas
+                    {auth.email}
                 </Title>
                 <ContainerButtons>
                     <Button onClick={()=>{Logout()}} backGroundHover={'red'} marginButtom={null}>Sign out</Button>
@@ -60,7 +61,10 @@ const Banner: FunctionComponent<BannerProps> = ({handleSearchNote}) => {
                             })
                         }
                     </Select>
-                    <button onClick={handleSubmit}>hola</button>
+                    <Search onClick={()=>{handleSubmit()}}>
+                        <IconSerach />
+                    </Search>
+                    
             </FormSearch>
                 
             
@@ -68,6 +72,18 @@ const Banner: FunctionComponent<BannerProps> = ({handleSearchNote}) => {
         </Container>
      );
 }
+const Search=styled.div`
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    margin-left: 10px;
+    :hover{
+    transition: 0.2s;
+        -webkit-transform:scale(1.5, 1.5);
+        
+    }
+`
+
 const Container = styled.div`
     text-align: center;
 `
@@ -76,21 +92,21 @@ transition: 0.2s;
     margin-top: 15px;
     margin-right:20px;
     
-    background-color: #d5cece;
+    background-color: white;
     border: 1px solid #555454;
     font-size: 20px;
     height: 30px;
     width: 80%;
-    border-radius: 15px;
-    color: white;
+    border-radius: 20px;
+    color: #706f6f;
     padding: 5px;
     outline: none;
     ::placeholder{
-        font-weight: bold;
-        color: white;
+        font-weight: 500;
+        color: #706f6f;
     }
     :focus {
-        border:2px solid white;
+        border:1px solid white;
 }
       
 `
@@ -100,19 +116,22 @@ const Select = styled.select`
     margin-top: 15px;
     font-size: 20px;
     margin-left: 10px;
-    background-color: #d5cece;
+    background-color: white;
     border: 1px solid #555454;
     height: 45px;
     width: 80%;
-    border-radius: 15px;
+    border-radius: 20px;
     outline: none;
-    color: white;
+    color: #706f6f;
+    &>option{
+        cursor: pointer;
+    }
     ::placeholder{
-        font-weight: bold;
-        color: white;
+        font-weight: 500;
+        color: #706f6f;
     }
     :focus {
-        border:2px solid white;
+        border:1px solid white;
     }
 `
 const FormSearch = styled.div`
@@ -124,8 +143,8 @@ const FormSearch = styled.div`
 const ContainerOptions = styled.div`
     display: flex;
     text-align: center;
-    width: 55%;
-    float: right;
+    width: 100%;
+    
     
 `
 const Title = styled.h2`
@@ -137,25 +156,25 @@ const ContainerButtons = styled.div`
     float: right;
     display: block;
     text-align: -webkit-right;
-    width: 80%;
+    width: 100%;
 `
 const Button = styled.button<PropsStyled>`
-cursor: pointer;
-display: block;
-margin: 15px 0px;
-margin-bottom: ${p=>p.marginButtom};
-    color: #318aac !important;
-  font-size: 20px;
-  font-weight: 500;
-  padding: 0.5em 1.2em;
-  background: rgba(0,0,0,0);
-  border: 2px solid;
-  border-color: #318aac;
-  transition: all 0.5s ease;
-  position: relative;
-  :hover{
-    background: ${p => p.backGroundHover? p.backGroundHover : '#d5cece'};
-    color: #fff !important;
-  }
+    cursor: pointer;
+    display: block;
+    margin: 15px 0px;
+    margin-bottom: ${p=>p.marginButtom};
+    border-radius: 25px;
+    border: none;
+    color: white;
+    background: #1818d8;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 0.5em 1.2em;
+    transition: all 0.5s ease;
+    position: relative;
+    :hover{
+        background: ${p => p.backGroundHover? p.backGroundHover : '#d5cece'};
+        color: #fff !important; 
+    }
 `
 export default Banner;

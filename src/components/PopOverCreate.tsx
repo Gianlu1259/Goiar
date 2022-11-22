@@ -40,7 +40,10 @@ const PopOverCreate: FunctionComponent<PopOverCreateProps> = (props) => {
       };
     return ( 
         <>
-            <Container mostrar={note.popOver}>
+        {
+            note.popOver?
+            <Create mostrar={note.popOver} >
+            <Container>
                 <DeleteButton>
                     <IconDelete onClick={()=>{closePopover()}}>
                         <span>X</span>
@@ -71,7 +74,7 @@ const PopOverCreate: FunctionComponent<PopOverCreateProps> = (props) => {
                             Tipo
                         </h2>
                         <Select value={props.formData.Tipo} name='Tipo' onChange={handleTipo}>
-                        <option value="" selected disabled hidden>Filtrar por tipo de nota</option>
+                        <option value="" selected disabled hidden>Seleccionar tipo de nota</option>
                             {
                                 tiposNota.map((tipo)=>{
                                     return <option style={{cursor:'pointer'}} value={tipo}>{tipo}</option>
@@ -86,9 +89,21 @@ const PopOverCreate: FunctionComponent<PopOverCreateProps> = (props) => {
                     </Boton>
                 </Form>
             </Container>
+        </Create>:
+        null
+        }
+        
+            
         </>
      );
 }
+const Create = styled.div<PropsStyled>`
+    width: 100%;
+    height: 100%;
+    bottom: 60%;
+    position: sticky;
+    -webkit-transform:${p=>p.mostrar?'scale(1.1, 1.1)':'scale(0, 0)'};
+`
 const Boton = styled.div`
     height: 50px;
     width: 100%;
@@ -145,19 +160,15 @@ const Form = styled.div`
         }
      }
 `
-const Container = styled.div<PropsStyled>`
+const Container = styled.div`
     transition: all 0.3s;
     z-index: 1;
-    background-color: #d9d9d9;
+    background-color: #ffffff;
     height:410px;
     width:500px;
-    -webkit-transform:${p=>p.mostrar?'scale(1.1, 1.1)':'scale(0, 0)'};
-    position: absolute;
-    top: 20%;
-    left: 35%;
+    margin: auto;
     border-radius: 25px;
     -webkit-box-shadow: 0px 0px 16px 5px rgba(0,0,0,0.76);
-    //display: ${p=>p.mostrar?'block':'none'};
 `
 
 const IconDelete = styled.div`

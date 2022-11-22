@@ -9,7 +9,7 @@ import ContainerCards from '../../components/ContainerCards';
 import PopOverCreate from '../../components/PopOverCreate';
 import { NoteData } from '../../types/NoteType';
 import Note from '../../components/Note';
-
+import NotFound from '../../public/images/triste.png'
 export interface NoteCreate{
   Titulo:string
   Tipo:string
@@ -73,7 +73,16 @@ const Home: React.FC = () => {
   return (
     <Container>
         <Banner handleSearchNote={handleSearchNote}/>
-        <ContainerCards arrayNotes={note.notes} setSelectedNote={setSelectedNote}/>
+        {
+          note.notes.length===0?
+          <ContainerImg>
+            <img src={NotFound} alt="triste" />
+            <h2>No se encontraron notas, comienza a crear!</h2>
+          </ContainerImg>
+            
+          :
+          <>
+            <ContainerCards arrayNotes={note.notes} setSelectedNote={setSelectedNote}/>
         {
           note.countNotes!==note.notes.length?
           <ViewMore>
@@ -81,7 +90,13 @@ const Home: React.FC = () => {
         </ViewMore>:null
         }
         <Note selectNote={selectedNote}/>
-        <PopOverCreate formData={formData} setFormData={setFormData} handleCreateNote={handleCreateNote}/>
+        
+          <PopOverCreate formData={formData} setFormData={setFormData} handleCreateNote={handleCreateNote}/>
+        
+        
+          </>
+        }
+        
       
     </Container>
   )
@@ -91,8 +106,16 @@ const Container = styled.div`
     padding: 0px 200px;
     padding-top: 60px;
     background-color: #36dd81;
-    //position: relative;
     min-height: 100vh;
+    overflow: hidden;
+`
+const ContainerImg = styled.div`
+    text-align: center;
+    margin-top: 100px;
+    width: 100%;
+    &>img{
+      width: 350px;
+    }
 `
 const ViewMore = styled.div`
    

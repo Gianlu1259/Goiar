@@ -44,7 +44,7 @@ const TextareaForm = styled.textarea`
     background-color: transparent;
     border: none;
     border-bottom: 1px solid black;
-    color: white;
+    color: #706f6f;
     font-size: 20px;
     resize: none;
     rows:10;

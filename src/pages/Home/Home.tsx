@@ -1,10 +1,10 @@
 import { Timestamp } from 'firebase/firestore';
 import React, {useEffect,useState}from 'react'
 import { useCustomDispatch, useCustomSelector } from '../../hooks/redux';
-import { createNote, searchNotes, setLastVidible, setPopOver } from '../../redux/slices/Notas';
+import { createNote, filterNote, notesUser, resetLastVisible, setLastVidible, setPopOver } from '../../redux/slices/Notas';
 import styled from 'styled-components';
 import Banner from '../../components/Banner';
-import { NoteSearch } from '../../types/NoteSerach';
+import { IFilter } from '../../types/NoteSerach';
 import ContainerCards from '../../components/ContainerCards';
 import PopOverCreate from '../../components/PopOverCreate';
 import { NoteData } from '../../types/NoteType';
@@ -34,16 +34,22 @@ const Home: React.FC = () => {
   const [selectedNote, setSelectedNote] = useState<NoteData>();
 
   useEffect(() => {
-    dispatch(searchNotes(auth.id,note.lastVisible))
+    dispatch(notesUser(auth.id,note.lastVisible))
   }, [])
   useEffect(() => {
-    dispatch(searchNotes(auth.id,note.lastVisible))
+    dispatch(notesUser(auth.id,note.lastVisible))
   }, [note.lastVisible])
 
   const handleViewMore=async()=>{
     dispatch(setLastVidible());
   }
-  const handleSearchNote=async(form:NoteSearch)=>{
+  const handleSearchNote=async(form:IFilter)=>{
+    console.log(form)
+    if(form.input!=='' || form.tipo!=='')dispatch(filterNote(auth.id,form))
+    else {
+      dispatch(resetLastVisible())
+      dispatch(notesUser(auth.id,note.lastVisible))
+    }
     
   }
   const handleCreateNote=()=>{
@@ -53,7 +59,7 @@ const Home: React.FC = () => {
       formData.UserId=auth.id;
       dispatch(createNote(formData)).then(()=>{
         dispatch(setPopOver(false))
-        dispatch(searchNotes(auth.id,note.lastVisible))
+        dispatch(notesUser(auth.id,note.lastVisible))
         setFormData({
           Titulo:'',
           Tipo:'',

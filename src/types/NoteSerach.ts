@@ -1,4 +1,4 @@
-export interface NoteSearch{
-    select:string;
-    input:string
-  }
+export interface IFilter {
+  input:string;
+  tipo:string;
+}

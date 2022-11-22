@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 import styled from "styled-components";
 import { useCustomDispatch, useCustomSelector } from "../hooks/redux";
-import { deleteNote, searchNotes, setViewCard } from "../redux/slices/Notas";
+import { deleteNote, notesUser, setViewCard } from "../redux/slices/Notas";
 import { NoteData } from "../types/NoteType";
 
 interface CardProps {
@@ -14,7 +14,7 @@ const Card: FunctionComponent<CardProps> = ({noteData,setSelectedNote}) => {
     const dispatch=useCustomDispatch()
     const handleDeleteNote=(idNote:string)=>{
             dispatch(deleteNote(idNote))
-            dispatch(searchNotes(auth.id,note.lastVisible))
+            dispatch(notesUser(auth.id,note.lastVisible))
       }
       const viewCard=()=>{
         dispatch(setViewCard(true));

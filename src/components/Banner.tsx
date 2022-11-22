@@ -24,7 +24,8 @@ const Banner: FunctionComponent<BannerProps> = ({handleSearchNote}) => {
         setInput(event.target.value)
     }
     const handleSubmit=()=>{
-        handleSearchNote({select,input})
+        console.log(select)
+        handleSearchNote({tipo:select,input})
     }
     const openPopover=()=>{
         dispatch(setPopOver(true));
@@ -52,7 +53,7 @@ const Banner: FunctionComponent<BannerProps> = ({handleSearchNote}) => {
                         onChange={handleDescription}
                     />
                     <Select value={select} onChange={handleTipo}>
-                    <option value="" selected disabled hidden>Filtrar por tipo de nota</option>
+                    <option value="">Filtrar por tipo de nota</option>
                         {
                             tiposNota.map((tipo)=>{
                                 return <option style={{cursor:'pointer'}} value={tipo}>{tipo}</option>

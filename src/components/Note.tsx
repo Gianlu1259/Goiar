@@ -17,7 +17,6 @@ const Note: FunctionComponent<NoteProps> = ({selectNote}) => {
         dispatch(setViewCard(false));
     }
     const {note}=useCustomSelector((state)=>state)
-    console.log(selectNote?.Tipo)
     return ( 
         <Container mostrar={note.viewDetail}>
                 <DeleteButton>

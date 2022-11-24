@@ -1,12 +1,11 @@
 import { FunctionComponent } from "react";
 import styled from "styled-components";
+import { IComponentProps } from "../types/IComponentProps";
 import NavBar from "./NavBar";
 
-interface LoyautFormsProps {
-    children:React.ReactNode
-}
+
  
-const LoyautForms: FunctionComponent<LoyautFormsProps> = ({children}) => {
+const LoyautForms: FunctionComponent<IComponentProps> = ({children}) => {
     return ( 
         <>
         <NavBar/>

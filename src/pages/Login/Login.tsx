@@ -7,6 +7,7 @@ import FormLogin from '../../components/FormLogin';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
 import LoyautForms from '../../components/LoyautForm';
+import { setClearData, setErrorData } from '../../redux/slices/Messages';
 
 const Login: React.FC= () => {
     const initialValues: LoginData = {
@@ -24,10 +25,11 @@ const Login: React.FC= () => {
 
     const handleLogin = async() => {
         if(formData.email!=='' || formData.password!==''){
-            dispatch(login(formData)).then((res)=>{
+            dispatch(login(formData)).then(()=>{
+                dispatch(setClearData())
                 navigate('/home');
             }).catch((e)=>{
-                alert(e);
+                dispatch(setErrorData('Datos incorrectos'))
         })
         }
     }
@@ -35,19 +37,8 @@ const Login: React.FC= () => {
         <>
         <LoyautForms>
             <FormLogin handleInputChange={handleInputChange} handleLogin={handleLogin} email={formData.email} password={formData.password}/>
+            
         </LoyautForms>
-        {/*<NavBar/>
-        <Container>
-            <InfoContainer>
-                <Title>
-                    Note Express
-                </Title>
-            </InfoContainer>
-
-            <FormContainer>
-                <FormLogin handleInputChange={handleInputChange} handleLogin={handleLogin} email={formData.email} password={formData.password}/>
-            </FormContainer>
-    </Container>*/}
         </>
         
     );

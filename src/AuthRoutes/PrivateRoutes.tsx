@@ -1,13 +1,11 @@
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import React, { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useCustomSelector } from '../hooks/redux';
+import { IComponentProps } from '../types/IComponentProps';
 
-export interface IPrivateRoutesProps {
-    children: React.ReactNode
-}
+
  
-const PrivateRoutes: React.FunctionComponent<IPrivateRoutesProps> = ({children}) => {
+const PrivateRoutes: React.FunctionComponent<IComponentProps> = ({children}) => {
     const {auth}=useCustomSelector((state)=>state)
     const navigate=useNavigate();
     useEffect(() => {
@@ -15,9 +13,7 @@ const PrivateRoutes: React.FunctionComponent<IPrivateRoutesProps> = ({children})
     }, [auth])
     
     const AuthCheck=()=>{
-        if(auth.id===''){
-            navigate('/')
-        }
+        if(auth.id==='') navigate('/')
     }
     
     return <>{children}</>;

@@ -1,14 +1,7 @@
 import { FunctionComponent } from "react";
 import styled from "styled-components";
+import { TextareaProps } from "../types/ITextarea";
 
-interface TextareaProps { 
-    title:string,
-    name:string,
-    type:string,
-    placeholder:string,
-    value:string,
-    onChange:React.ChangeEventHandler,
-}
  
 const Textarea: FunctionComponent<TextareaProps> = ({ title, placeholder, name, onChange, value }) => {
     return <Container >

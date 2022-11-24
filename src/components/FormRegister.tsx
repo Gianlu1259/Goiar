@@ -1,5 +1,6 @@
 import { FunctionComponent } from "react";
 import styled from "styled-components";
+import { useCustomSelector } from "../hooks/redux";
 import Input from "./Input";
 
 interface FormRegisterProps {
@@ -11,6 +12,7 @@ interface FormRegisterProps {
 }
  
 const FormRegister: FunctionComponent<FormRegisterProps> = ({handleInputChange,handleRegister,email,password,password2}) => {
+    const {message}=useCustomSelector((state)=>state)
     return ( 
          <Container>
                 <Input
@@ -40,6 +42,9 @@ const FormRegister: FunctionComponent<FormRegisterProps> = ({handleInputChange,h
                 <button type="submit" onClick={handleRegister}>
                     Ingresar
                 </button>
+                {
+                message.error.length>0? <Error>{message.error}</Error>:null
+            }
             </Container>
      );
 }
@@ -69,5 +74,8 @@ export const Container = styled.div`
         color: white;
         background-color: #1818d8;
     }
+`
+export const Error = styled.h3`
+    color: red;
 `
 export default FormRegister;

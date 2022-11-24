@@ -6,6 +6,7 @@ import LoyautForms from "../../components/LoyautForm";
 import NavBar from "../../components/NavBar";
 import { useCustomDispatch, useCustomSelector } from "../../hooks/redux";
 import { registerUser } from "../../redux/slices/auth";
+import { setClearData, setErrorData } from "../../redux/slices/Messages";
 import { RegisterData } from "../../types/RegisterData";
 
 interface RegisterProps {
@@ -22,20 +23,20 @@ const Register: FunctionComponent<RegisterProps> = () => {
       const [formData, setFormData] = useState<RegisterData>(initialValues);
     const dispatch=useCustomDispatch();
     const navigate=useNavigate();
-    const {auth}=useCustomSelector((state)=>state)
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
       };
         const handleLogin = async() => {
             if(formData.password===formData.password2){
-                dispatch(registerUser(formData)).then((res)=>{
+                dispatch(registerUser(formData)).then(()=>{
+                    dispatch(setClearData())
                     navigate('/home')
                 }).catch((e)=>{
-                    alert(e)
+                    dispatch(setErrorData('Los campos estan incompletois o ya existe un usuario con ese corrreo'))
                 })
             }else{
-                alert("contraseños distintas");
+                dispatch(setErrorData('Contraseñas distintas'))
             }
             
     }
@@ -44,18 +45,6 @@ const Register: FunctionComponent<RegisterProps> = () => {
         <LoyautForms>
             <FormRegister handleInputChange={handleInputChange} handleRegister={handleLogin} email={formData.email} password={formData.password} password2={formData.password2}/>
         </LoyautForms>
-            {/*<NavBar/>
-            <Container>
-            <InfoContainer>
-                <Title>
-                    Mis notas
-                </Title>
-            </InfoContainer>
-
-            <FormContainer>
-                <FormRegister handleInputChange={handleInputChange} handleRegister={handleLogin} email={formData.email} password={formData.password} password2={formData.password2}/>
-            </FormContainer>
-        </Container>*/}
         </>
     );
 }

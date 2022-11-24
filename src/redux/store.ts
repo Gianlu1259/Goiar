@@ -1,6 +1,7 @@
 import { configureStore,ThunkAction,Action } from "@reduxjs/toolkit";
 import authReducer from "./slices/auth";
 import noteReducer from './slices/Notas/'
+import messageReducer from './slices/Messages'
 import { persistStore,persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
@@ -13,7 +14,8 @@ const persistAuth={
 const store= configureStore({
     reducer:{
         auth:persistReducer<ReturnType<typeof authReducer>>(persistAuth,authReducer),
-        note:noteReducer
+        note:noteReducer,
+        message:messageReducer
     }
 });
 

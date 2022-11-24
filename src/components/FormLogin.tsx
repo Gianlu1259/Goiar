@@ -1,7 +1,8 @@
 import { FunctionComponent } from "react";
 import styled from "styled-components";
+import { useCustomSelector } from "../hooks/redux";
 import Input from "./Input";
-
+import {useEffect} from 'react'
 interface FormLoginProps {
     handleInputChange:any,
     handleLogin:any,
@@ -10,6 +11,7 @@ interface FormLoginProps {
 }
  
 const FormLogin: FunctionComponent<FormLoginProps> = ({handleInputChange,handleLogin,email,password}) => {
+    const {message}=useCustomSelector((state)=>state)
     return <Container>
                 <Input
                     value={email}
@@ -30,6 +32,10 @@ const FormLogin: FunctionComponent<FormLoginProps> = ({handleInputChange,handleL
                 <button type="submit" onClick={handleLogin}>
                     Ingresar
                 </button>
+                {
+                message.error.length>0? <Error>{message.error}</Error>:null
+            }
+                
             </Container>
 }
 export const Container = styled.div`
@@ -58,5 +64,8 @@ export const Container = styled.div`
         color: white;
         background-color: #1818d8;
     }
+`
+export const Error = styled.h3`
+    color: red;
 `
 export default FormLogin;

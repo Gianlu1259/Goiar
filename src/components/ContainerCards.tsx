@@ -20,7 +20,7 @@ const ContainerCards: FunctionComponent<ContainerCardsProps> = ({arrayNotes,setS
      );
 }
 const Container = styled.div`
-    padding: 60px;
+    padding: 60px 0px;
     padding-bottom: 20px;
     display: flex;
     position: relative;

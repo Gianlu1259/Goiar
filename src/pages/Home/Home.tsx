@@ -44,7 +44,6 @@ const Home: React.FC = () => {
     dispatch(setLastVidible());
   }
   const handleSearchNote=async(form:IFilter)=>{
-    console.log(form)
     if(form.input!=='' || form.tipo!=='')dispatch(filterNote(auth.id,form))
     else {
       dispatch(resetLastVisible())
@@ -79,7 +78,6 @@ const Home: React.FC = () => {
             <img src={NotFound} alt="triste" />
             <h2>No se encontraron notas, comienza a crear!</h2>
           </ContainerImg>
-            
           :
           <>
             <ContainerCards arrayNotes={note.notes} setSelectedNote={setSelectedNote}/>
@@ -90,13 +88,9 @@ const Home: React.FC = () => {
         </ViewMore>:null
         }
         <Note selectNote={selectedNote}/>
-        
-          <PopOverCreate formData={formData} setFormData={setFormData} handleCreateNote={handleCreateNote}/>
-        
-        
           </>
         }
-        
+        <PopOverCreate formData={formData} setFormData={setFormData} handleCreateNote={handleCreateNote}/>
       
     </Container>
   )
